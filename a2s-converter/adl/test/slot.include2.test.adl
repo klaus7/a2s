@@ -1,0 +1,40 @@
+archetype 	
+	adl-test-ENTRY.test.draft
+
+concept 
+	[at0000]	--  basic data types test 1
+
+language
+	original_language = <[ISO_639-1::en]> 
+	
+definition
+	ENTRY[at0000] matches {
+		templateId existence matches {0..1} cardinality matches {1..*; unordered; unique} matches {
+            II[at0003] occurrences matches {1..*} matches {  -- II
+                root existence matches {0..1} matches {"1.1.3"}
+                assigningAuthorityName existence matches {0..1} matches {"ELGA"}
+            }
+		}
+		
+	    string_attributes matches {
+	        LIST matches {
+                string_attr1 matches {"slot2"}
+            }
+        }
+        
+    }
+ontology 
+	primary_language = <"en">
+	languages_available = <"en", ...>
+	terminologies_available = <"adl_test", ...>
+
+	term_definitions = <
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"test entry">; 
+					description = <"test entry">
+				>
+			>
+		>
+	>

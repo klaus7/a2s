@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ClinicalDocument xmlns="urn:hl7-org:v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<templateId assigningAuthorityName="ELGA" root="1.1.1" />
+	<test_participant typeCode="REF">
+		<functionCode code="ADMPHYS" codeSystem="2.16.840.1.113883.5.88"
+									codeSystemName="HL7:ParticipationType"
+									displayName="admitting physician"/>
+		<associatedEntity classCode="PROV">
+			<id nullFlavor="UNK"/>
+			<associatedPerson>
+				<name>
+					<prefix qualifier="AC">Univ.-Prof. Dr.</prefix>
+					<given>Herbert</given>
+					<family>Empfänger</family>
+				</name>
+			</associatedPerson>
+			<scopingOrganization>
+				<id nullFlavor="UNK"/>
+				<name>Ordination Dr. Empfänger</name>
+				<telecom value="tel:01.1234567"/>
+				<telecom value="fax:01.1234567.11"/>
+				<telecom value="mailto:office@ordination_empfaenger.at"/>
+				<telecom value="http://www.ordination_empfaenger.at"/>
+				<telecom value="me:1234567879"/>
+				<addr>
+					<streetName>Musterstraße</streetName>
+					<houseNumber>27/1/13</houseNumber>
+					<postalCode>6020</postalCode>
+					<city>Innsbruck</city>
+					<country>Österreich</country>
+				</addr>
+			</scopingOrganization>
+		</associatedEntity>
+	</test_participant>
+	<test_participant typeCode="CALLBCK">
+		<associatedEntity classCode="PROV">
+			<telecom use="WP" value="tel:+43.1.3453446.1"/>
+			<associatedPerson>
+				<name>
+					<prefix>Dr.</prefix>
+					<given>Walter</given>
+					<family>Hummel</family>
+				</name>
+			</associatedPerson>
+			<scopingOrganization>
+				<id assigningAuthorityName="GDA Index" root="1.2.40.0.34.99.111.0.1"/>
+				<name>Amadeus Spital - Chirurgische Abteilung</name>
+				<telecom value="tel:+43.1.3453446.0"/>
+				<telecom value="fax:+43.1.3453446.4674"/>
+				<telecom value="mailto:info@amadeusspital.at"/>
+				<telecom value="http://www.amadeusspital.at"/>
+				<!-- Adresse der Organisation -->
+				<addr>
+					<streetName>Mozartgasse</streetName>
+					<houseNumber>1-7</houseNumber>
+					<postalCode>1234</postalCode>
+					<city>St.Wolfgang</city>
+					<state>Salzburg</state>
+					<country>Österreich</country>
+				</addr>
+			</scopingOrganization>
+		</associatedEntity>
+	</test_participant>
+</ClinicalDocument>

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+<!-- 
+#
+# Attributes of elements, that provide the context for the schematron rules.
+#
+-->
+	<util:list id="contextElements">
+	
+		<bean class="at.ac.meduniwien.mias.adltoschematron.context.ContextElement">
+			<property name="element" value="templateId" />
+			<property name="strategy">
+				<bean class="at.ac.meduniwien.mias.adltoschematron.context.ContextElementStrategyTemplateId" />
+			</property>
+			<property name="attributes">
+				<util:list>
+					<bean class="at.ac.meduniwien.mias.adltoschematron.context.ContextElementAttribute">
+						<property name="name" value="assigningAuthorityName" />
+						<property name="priorityItems">
+							<util:list>
+								<value>ELGA</value>
+								<value>IHE PCC</value>
+								<value>HL7 CCD</value>
+							</util:list>
+						</property>
+					</bean>
+					<bean class="at.ac.meduniwien.mias.adltoschematron.context.ContextElementAttribute">
+						<property name="name" value="root" />
+					</bean>
+				</util:list>
+			</property>
+		</bean>
+		
+		<bean class="at.ac.meduniwien.mias.adltoschematron.context.ContextElement">
+			<property name="element" value="participant" />
+			<property name="contextForChildLevel" value="true" />
+			<property name="attributes">
+				<util:list>
+					<bean class="at.ac.meduniwien.mias.adltoschematron.context.ContextElementAttribute">
+						<property name="name" value="typeCode" /> <!-- context providing -->
+					</bean>
+				</util:list>
+			</property>
+			<property name="children">
+				<util:list>
+					<bean class="at.ac.meduniwien.mias.adltoschematron.context.ContextElement">
+						<property name="element" value="functionCode" />
+						<property name="contextForChildLevel" value="true" />
+						<property name="attributes">
+							<util:list>
+								<bean class="at.ac.meduniwien.mias.adltoschematron.context.ContextElementAttribute">
+									<property name="name" value="code" />
+								</bean>
+								<bean class="at.ac.meduniwien.mias.adltoschematron.context.ContextElementAttribute">
+									<property name="name" value="codeSystem" />
+								</bean>
+								<bean class="at.ac.meduniwien.mias.adltoschematron.context.ContextElementAttribute">
+									<property name="name" value="codeSystemName" />
+								</bean>
+								<bean class="at.ac.meduniwien.mias.adltoschematron.context.ContextElementAttribute">
+									<property name="name" value="displayName" />
+								</bean>
+							</util:list>
+						</property>
+					</bean>
+					<bean class="at.ac.meduniwien.mias.adltoschematron.context.ContextElement">
+						<property name="element" value="associatedEntity" />
+						<property name="contextForChildLevel" value="true" />
+						<property name="attributes">
+							<util:list>
+								<bean class="at.ac.meduniwien.mias.adltoschematron.context.ContextElementAttribute">
+									<property name="name" value="classCode" />
+								</bean>
+							</util:list>
+						</property>
+					</bean>
+				</util:list>
+			</property>
+		</bean>
+		
+		
+		
+		
+		<!-- CONTEXT ELEMENT USED FOR TESTING - DO NOT EDIT -->
+		<bean class="at.ac.meduniwien.mias.adltoschematron.context.ContextElement">
+			<property name="element" value="test_participant" />
+			<property name="contextForChildLevel" value="true" />
+			<property name="attributes">
+				<util:list>
+					<bean class="at.ac.meduniwien.mias.adltoschematron.context.ContextElementAttribute">
+						<property name="name" value="typeCode" />
+					</bean>
+				</util:list>
+			</property>
+			<property name="children">
+				<util:list>
+					<bean class="at.ac.meduniwien.mias.adltoschematron.context.ContextElement">
+						<property name="element" value="associatedEntity" />
+						<property name="contextForChildLevel" value="true" />
+						<property name="attributes">
+							<util:list>
+								<bean class="at.ac.meduniwien.mias.adltoschematron.context.ContextElementAttribute">
+									<property name="name" value="classCode" />
+								</bean>
+							</util:list>
+						</property>
+					</bean>
+				</util:list>
+			</property>
+		</bean>
+		
+	</util:list>
+</beans>
+

@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ClinicalDocument xmlns="urn:hl7-org:v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+	<templateId assigningAuthorityName="ELGA" root="1.1.1" />
+
+	<!-- tests that should fail -->
+	
+	<cardinality_check1 />
+	
+	<cardinality_check2 />
+	<cardinality_check2 />
+	<cardinality_check2 />
+	<cardinality_check2 />
+	
+
+	<string_attributes 
+		string_attr1="fomething" 
+		string_attr2="fomething else" 
+		string_attr3="fardiovascular"
+		string_attr4="fg/ml"
+		string_attr5="fpple"
+		string_attr6="fomething"
+		string_attr7="fomething else"
+		string_attr8="fardiotest"
+		string_attr9="fg"
+		string_attr10="fear"
+	>
+		<string_attr1>has value</string_attr1>
+	</string_attributes>
+
+	<boolean_attributes
+		boolean_attr1="false"
+		boolean_attr2="true"
+		boolean_attr4="false"
+		boolean_attr5="true"
+	/>
+
+	<integer_attributes
+		integer_attr1="5"
+		integer_attr2="21"
+		integer_attr3="155"
+		integer_attr4="9"
+		integer_attr5="19"
+		integer_attr6="9"
+		integer_attr7="11"
+		integer_attr8="-17"
+		integer_attr10="54"
+		integer_attr11="21"
+		integer_attr12="155"
+		integer_attr13="10"
+		integer_attr14="10"
+		integer_attr15="9"
+		integer_attr16="11"
+		integer_attr17="-17"
+		integer_attr18="101"
+		integer_attr19="0"
+		integer_attr20="100"
+		integer_attr21="0"
+	/>
+
+	<real_attributes
+		real_attr1="100.1"
+		real_attr2="20.1"
+		real_attr3="107.67"
+		real_attr4="10.000"
+		real_attr5="10.00"
+		real_attr6="9.9"
+		real_attr7="10.1"
+		real_attr8="-17.2"
+		real_attr10="100.1"
+		real_attr11="20.1"
+		real_attr12="123.2"
+		real_attr13="10.0"
+		real_attr14="10.0"
+		real_attr15="9.9"
+		real_attr16="10.1"
+		real_attr17="-17.1"
+		real_attr18="100.1"
+		real_attr19="0.0"
+		real_attr20="100.0"
+		real_attr21="0.0"
+	/>
+	
+	<duration_attributes
+		value1="1"
+		value2="86401"
+		value3="7501"
+		value4="7501"
+		value5="3601"
+		value6="90124"
+		value7="781324"
+		value8="8730124"
+		value10="601"
+		value12="0.005"
+		value13="10.02"
+		value14="1.2"
+		value15="121"
+	/>
+
+	<date_attributes
+		date_attr1="201210"
+		date_attr2="201210"
+		date_attr3="201210"
+		date_attr4="20121001"
+		date_attr5="19831224"
+		date_attr6="20000102"
+		
+		date_attr7="20031012"
+		date_attr8="20051012"
+		date_attr9="20040921"
+		date_attr10="20040920"
+		date_attr11="20040919"
+		
+		date_attr13="201210"
+		date_attr14="201210"
+		date_attr15="201210"
+		date_attr16="20121001"
+		date_attr17="19831226"
+		date_attr18="20000102"
+		
+		date_attr19="20040919"
+		date_attr20="20041012"
+		date_attr21="20040921"
+		date_attr22="20031012"
+		date_attr23="20030920"
+		date_attr24="20040921"
+	/>
+
+	<time_attributes
+		time_attr1="20000101240000+0000"
+		time_attr2="20000101000011+0000"
+		time_attr3="20000101007800+0000"
+		time_attr4="20000101007000+0000"
+		time_attr5="20000101000000+0000"
+		time_attr6="20000101000058+0000"
+		time_attr7="20000101000000+0000"
+		time_attr8="20000101123500+0000"
+		time_attr9="20000101123545-0800"
+		time_attr10="20000101123545+0900"
+		time_attr11="20000101123545-0900"
+		time_attr12="20000101123545+0900"
+		time_attr13="20000101123545+0100"
+		time_attr14="20000101123545-0100"
+		time_attr15="20000101123545+0100"
+		time_attr16="20000101113545+0000"
+		time_attr17="20000101133545+0000"
+		time_attr18="20000101123511+0000"
+		time_attr19="20000101113545+0000"
+		time_attr20="20000101113500+0000"
+		
+		time_attr21="20000101240000+0000"
+		time_attr22="20000101000011+0000"
+		time_attr23="20000101007800+0000"
+		time_attr24="20000101000070+0000"
+		time_attr25="20000101000000+0000"
+		time_attr26="20000101000058+0000"
+		time_attr27="20000101000000+0000"
+		time_attr28="20000101123500+0000"
+		time_attr29="20000101123545-0800"
+		time_attr30="20000101123545+0900"
+		time_attr31="20000101123545-0900"
+		time_attr32="20000101123545+0900"
+		time_attr33="20000101123545+0100"
+		time_attr34="20000101123545-0100"
+		time_attr35="20000101123545+0100"
+		time_attr36="20000101113545+0000"
+		time_attr37="20000101133545+0000"
+		time_attr38="20000101123511+0000"
+		time_attr39="20000101113545+0000"
+		time_attr40="20000101113500+0000"
+		
+		time_attr41="20000101123511+0000"
+	/>
+
+	<date_time_attributes
+		date_time_attr1="20000101137313+0000"
+		date_time_attr2="20000101131373+0000"
+		date_time_attr3="20000101131301+0000"
+		date_time_attr4="20000101131301+0000"
+		date_time_attr5="30000101131300+0000"
+		date_time_attr6="19831226220005+0000"
+		date_time_attr7="20000101001059+0000"
+		
+		date_time_attr8="20000101000159+0000"
+		date_time_attr9="20000101000159+0000"
+		date_time_attr10="20000101000059+0100"
+		date_time_attr11="20000101000059+1300"
+		date_time_attr12="20000101000059+0100"
+		date_time_attr13="20000101000059+1300"
+		date_time_attr14="20000101000059+0100"
+		date_time_attr15="20000101000059+1300"
+		
+		date_time_attr16="19990101000059+0000"
+		date_time_attr17="20000101000059+0000"
+		date_time_attr18="20000101000001+0000"
+		date_time_attr19="20000101000000+0000"
+		date_time_attr20="19990101000000+0000"
+		
+		date_time_attr21="20001301000000+0000"
+		date_time_attr22="20000101000001+0000"
+	/>
+
+</ClinicalDocument>

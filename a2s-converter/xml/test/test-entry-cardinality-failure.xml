@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ClinicalDocument xmlns="urn:hl7-org:v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<templateId assigningAuthorityName="ELGA" root="1" />
+	
+	<ca1>
+		<templateId root="1.2" assigningAuthorityName="ELGA" />
+		<string_attr>something</string_attr>
+	</ca1>
+	<ca1 string_attr="something">
+		<templateId root="1.2" assigningAuthorityName="ELGA" />
+	</ca1>
+	<ca1 string_attr="something">
+		<templateId root="1.2" assigningAuthorityName="ELGA" />
+	</ca1>
+	
+</ClinicalDocument>
