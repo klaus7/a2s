@@ -59,29 +59,28 @@
 	</xsl:template>
 
 	<xsl:template match="svrl:failed-assert">
-		<xsl:variable name='role-text'>error</xsl:variable>
-		<xsl:variable name='role-color' select='"red"' />
-		<xsl:choose>
-			<xsl:when test="@role = 'error'">
-				<xsl:variable name='role-text' select='"Error"' />
-				<xsl:variable name='role-color' select='"red"' />
-			</xsl:when>
-			<xsl:when test="@role = 'warning'">
-				<xsl:variable name='role-text' select='"Warning"' />
-				<xsl:variable name='role-color' select='"yellow"' />
-			</xsl:when>
-			<xsl:when test="@role = 'info'">
-				<xsl:variable name='role-text' select='"Info"' />
-				<xsl:variable name='role-color' select='"blue"' />
-			</xsl:when>
-		</xsl:choose>
+
 		<table id="newspaper-a">
 			<thead>
 				<tr>
 					<th>
-						<font color="{$role-color}">
-							<b><xsl:copy-of select="$role-text" /></b>
-						</font>
+					<xsl:choose>
+						<xsl:when test="@role = 'error'">
+							<font color="red">
+								<b>Error</b>
+							</font>
+						</xsl:when>
+						<xsl:when test="@role = 'warning'">
+							<font color="yellow">
+								<b>Warning</b>
+							</font>
+						</xsl:when>
+						<xsl:when test="@role = 'info'">
+							<font color="blue">
+								<b>Info</b>
+							</font>
+						</xsl:when>
+					</xsl:choose>
 					</th>
 					<th>
 						<xsl:value-of select="svrl:text" />
