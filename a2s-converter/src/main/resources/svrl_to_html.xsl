@@ -59,61 +59,45 @@
 	</xsl:template>
 
 	<xsl:template match="svrl:failed-assert">
+		<xsl:variable name='role-text'>error</xsl:variable>
+		<xsl:variable name='role-color' select='"red"' />
 		<xsl:choose>
 			<xsl:when test="@role = 'error'">
-				<table id="newspaper-a">
-				<thead>
-					<tr>
-						<th>
-							<font color="red">
-								<b>Error</b>
-							</font>
-						</th>
-						<th>
-							<xsl:value-of select="svrl:text" />
-						</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td>Location</td>
-						<td><xsl:value-of select="@location" /></td>
-					</tr>
-					<tr>
-						<td>Test</td>
-						<td><xsl:value-of select="@test" /></td>
-					</tr>
-				</tbody>
-				</table>
+				<xsl:variable name='role-text' select='"Error"' />
+				<xsl:variable name='role-color' select='"red"' />
 			</xsl:when>
 			<xsl:when test="@role = 'warning'">
-				<p>
-					<font color="blue">
-						<font color="green">
-							<xsl:value-of select="@line" />
-							-
-							<xsl:value-of select="@column" />
-							:
-						</font>
-						Warning:
-						<xsl:value-of select="svrl:text" />
-					</font>
-				</p>
+				<xsl:variable name='role-text' select='"Warning"' />
+				<xsl:variable name='role-color' select='"yellow"' />
 			</xsl:when>
 			<xsl:when test="@role = 'info'">
-				<p>
-					<font color="blue">
-						<font color="green">
-							<xsl:value-of select="@line" />
-							-
-							<xsl:value-of select="@column" />
-							:
-						</font>
-						Info:
-						<xsl:value-of select="svrl:text" />
-					</font>
-				</p>
+				<xsl:variable name='role-text' select='"Info"' />
+				<xsl:variable name='role-color' select='"blue"' />
 			</xsl:when>
 		</xsl:choose>
+		<table id="newspaper-a">
+			<thead>
+				<tr>
+					<th>
+						<font color="{$role-color}">
+							<b><xsl:copy-of select="$role-text" /></b>
+						</font>
+					</th>
+					<th>
+						<xsl:value-of select="svrl:text" />
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>Location</td>
+					<td><xsl:value-of select="@location" /></td>
+				</tr>
+				<tr>
+					<td>Test</td>
+					<td><xsl:value-of select="@test" /></td>
+				</tr>
+			</tbody>
+		</table>
 	</xsl:template>
 </xsl:stylesheet>
