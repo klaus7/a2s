@@ -1,0 +1,8 @@
+/target
+/.settings/*
+.classpath
+.project
+.sonar/
+report.xml
+report.xml.html
+schematron.sch
