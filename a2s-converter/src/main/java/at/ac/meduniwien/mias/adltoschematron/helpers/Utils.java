@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.Properties;
 
 import javax.xml.transform.Source;
@@ -119,6 +120,41 @@ public final class Utils implements IConstants {
 	}
 
 	/**
+	 * @param schematron schematron as string
+	 * @param xml xml as string
+	 * @return svrl xml string
+	 */
+	public static String validateXmlWithSchematronString(final String schematron, final String xml) {
+		System.setProperty("javax.xml.transform.TransformerFactory", "net.sf.saxon.TransformerFactoryImpl");
+
+		// generate schematron xsl
+		String tmpxsl = xslString(schematron, Utils.class.getClassLoader().getResourceAsStream(SVRL_REPORT_XSL));
+
+		String output = null;
+		if (tmpxsl != null) {
+			// validate xml input file
+			try {
+				output = xslString(xml, new ByteArrayInputStream(tmpxsl.getBytes("UTF-8")));
+			} catch (UnsupportedEncodingException e) {
+				log.error("unsupported encoding", e);
+			}
+		} else {
+			log.error("Couldn't create XSL from Schematron schema.");
+		}
+
+		return output;
+	}
+
+	/**
+	 * @param svrl svrl as string
+	 * @return html report as string
+	 */
+	public static String generateHtmlReport(final String svrl) {
+		// create html report
+		return xslString(svrl, Utils.class.getClassLoader().getResourceAsStream(HTML_REPORT_XSL));
+	}
+
+	/**
 	 * @param xmlFile xml input file
 	 * @param xslFile xsl transformation file
 	 * @param outFile output file
@@ -162,6 +198,35 @@ public final class Utils implements IConstants {
 				return sw.getBuffer().toString();
 
 			}
+
+		} catch (Exception e) {
+
+			log.error(e.getLocalizedMessage(), e);
+
+		}
+		return null;
+	}
+
+	private static String xslString(final String xmlFile, final InputStream xslStream) {
+		return xslString(xmlFile, new StreamSource(xslStream));
+	}
+	private static String xslString(final String xml, final Source xslSource) {
+		try {
+
+			TransformerFactory tFactory = TransformerFactory.newInstance();
+
+			// 2. Use the TransformerFactory to process the stylesheet Source and
+			//		    generate a Transformer.
+			Transformer transformer = tFactory.newTransformer(xslSource);
+
+			// 3. Use the Transformer to transform an XML Source and send the
+			//		    output to a Result object.
+
+			StringWriter sw = new StringWriter();
+			StreamResult sr = new StreamResult(sw);
+			transformer.transform(new StreamSource(new ByteArrayInputStream(xml.getBytes("UTF-8"))), sr);
+
+			return sw.getBuffer().toString();
 
 		} catch (Exception e) {
 

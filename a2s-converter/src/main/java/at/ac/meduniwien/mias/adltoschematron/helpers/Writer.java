@@ -8,14 +8,16 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.io.StringWriter;
 
 import lombok.extern.log4j.Log4j;
-import at.ac.meduniwien.mias.adltoschematron.AdlToSchematronConverter;
 
 @Log4j
 public final class Writer {
 
-	private static BufferedWriter bw;
+	private static java.io.Writer bw;
+	private static boolean writeToFile;
+	private static String outputFile;
 
 	/**
 	 * Write the XML header.
@@ -42,31 +44,45 @@ public final class Writer {
 	 * delete previous generated schematron-file.
 	 */
 	public static void resetOutput() {
-		File f = new File(AdlToSchematronConverter.outputFile);
+		if (writeToFile) {
+			File f = new File(outputFile);
 
-		try {
+			try {
 
-			if (f.delete()) {
+				if (f.delete()) {
 
-				log.info("Deleted: " + f.getName());
+					log.info("Deleted: " + f.getName());
+
+				}
+
+			} catch (SecurityException e) {
+
+				log.error("Could not delete file: " + f.getName());
 
 			}
-
-		} catch (SecurityException e) {
-
-			log.error("Could not delete file: " + f.getName());
-
 		}
-
 	}
 
-	public static void start() {
+	public static void start(final boolean writeToFile, final String outputFile) {
+		Writer.writeToFile = writeToFile;
+		Writer.outputFile = outputFile;
 		try {
-			bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(AdlToSchematronConverter.outputFile), "UTF-8"));
+			if (writeToFile) {
+				bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(outputFile), "UTF-8"));
+			} else {
+				bw = new StringWriter();
+			}
 
 		} catch (IOException e) {
 			log.error(e.getLocalizedMessage(), e);
 		}
+	}
+
+	public static String getString() {
+		if (!writeToFile) {
+			return bw.toString();
+		}
+		return null;
 	}
 
 	public static void stop() {

@@ -139,19 +139,14 @@ public class AdlToSchematronConverter implements IConstants {
 		try {
 
 			if (!StringUtils.isEmpty(adlFile)) {
-
-				new AdlToSchematronConverter(adlFile);
-
+				AdlToSchematronConverter adlToSchematronConverter = new AdlToSchematronConverter();
+				adlToSchematronConverter.createSchematron(false, adlFile, null);
 			}
 
 			if (!StringUtils.isEmpty(xmlFile)) {
-
 				return validateXmlWithSchematronFile(xmlFile);
-
 			} else {
-
 				return 0;
-
 			}
 
 			// Properties
@@ -189,15 +184,10 @@ public class AdlToSchematronConverter implements IConstants {
 		if (!StringUtils.isEmpty(confFolder)) {
 
 			Properties prop = Utils.loadProperties(new File(confFolder + File.separator + propFileName));
-
 			if (prop != null) {
-
 				return prop;
-
 			} else {
-
 				log.info("Couldn't load custom properties: " + propFileName);
-
 			}
 
 		}
@@ -221,18 +211,22 @@ public class AdlToSchematronConverter implements IConstants {
 	 * @throws Exception
 	 * @throws ParseException
 	 */
-	public AdlToSchematronConverter(final String adlFileString) throws ParseException, FileNotFoundException,
+	public AdlToSchematronConverter() throws ParseException, FileNotFoundException,
 																IOException, Exception {
 
 		patterns = new ArrayList<Pattern>();
 		adlFiles = new ArrayList<File>();
 
-		createSchematron(adlFileString);
-
 	}
 
+	/**
+	 * @throws IOException
+	 * @throws FileNotFoundException
+	 * @throws ParseException
+	 * @throws Exception
+	 */
 	@SuppressWarnings("unchecked")
-	private Archetype init(final String adlFileString) throws IOException, FileNotFoundException, ParseException,
+	private void init() throws IOException, FileNotFoundException, ParseException,
 														Exception {
 
 		if (!StringUtils.isEmpty(confFolder)) {
@@ -243,6 +237,7 @@ public class AdlToSchematronConverter implements IConstants {
 
 		parserProperties = getPropertiesFromClasspath("parser.properties");
 
+		// set properties
 		SetProperties.ignoreDuplicateTests =
 				Boolean.parseBoolean(parserProperties.getProperty("ignoreDuplicateTests", "false"));
 		SetProperties.ignorePatterns = parserProperties.getProperty("ignorePatterns", "").split(",");
@@ -264,6 +259,15 @@ public class AdlToSchematronConverter implements IConstants {
 
 		getAdlFiles(SetProperties.adlFolder);
 
+	}
+
+	/**
+	 * @param adlFileString the path to the archetype file
+	 * @return {@link Archetype} object
+	 * @throws Exception
+	 * @throws ParseException
+	 */
+	private Archetype getArchetypeFromFile(final String adlFileString) throws ParseException, Exception {
 		File adlFile = new File(adlFileString);
 
 		if (!adlFile.exists()) {
@@ -281,17 +285,48 @@ public class AdlToSchematronConverter implements IConstants {
 	}
 
 	/**
-	 * 
-	 * @param adlFileString adl file to create archetype from
+	 * @param adlString the path to the archetype file
+	 * @return {@link Archetype} object
+	 * @throws Exception
+	 * @throws ParseException
+	 */
+	private Archetype getArchetypeFromString(final String adlString) throws ParseException, Exception {
+		log.info("Start parsing adl string ...");
+
+		ADLParser parser;
+
+		parser = new AdlParserWrapper(adlString, true, true);
+		Archetype archetype = parser.parse();
+		return archetype;
+	}
+
+	/**
+	 * @param returnString whether to return string or create an output file
+	 * @param adlFileString adl file to create archetype from OR
+	 * @param archetypeString archetype as string
 	 * @throws ParseException thrown on error while parsing the adl to the aom
 	 * @throws FileNotFoundException thrown when adl file could not be found
 	 * @throws IOException thrown when adl file could not be read
 	 * @throws Exception adl parser also throws general exception
 	 */
-	private void createSchematron(final String adlFileString) throws ParseException, FileNotFoundException,
-																IOException, Exception {
+	public String createSchematron(final boolean returnString, final String adlFileString, final String archetypeString)
+																														throws ParseException,
+																														FileNotFoundException,
+																														IOException,
+																														Exception {
 
-		Archetype archetype = init(adlFileString);
+		init();
+
+		Archetype archetype = null;
+		if (!StringUtils.isEmpty(adlFileString)) {
+			archetype = getArchetypeFromFile(adlFileString);
+		} else if (!StringUtils.isEmpty(archetypeString)) {
+			archetype = getArchetypeFromString(archetypeString);
+		}
+		if (archetype == null) {
+			log.error("Couldn't create archetype, because input was missing.");
+			return null;
+		}
 
 		// constraints are in the definition
 		CComplexObject cComplexObject = archetype.getDefinition(); // Definition -> Constraints
@@ -322,8 +357,7 @@ public class AdlToSchematronConverter implements IConstants {
 		ignorelist = Arrays.asList(SetProperties.ignorePatterns);
 
 		// write everything to output
-
-		Writer.start();
+		Writer.start(!returnString, outputFile);
 		Writer.writeHeader();
 
 		for (final Pattern p : patterns) {
@@ -343,6 +377,8 @@ public class AdlToSchematronConverter implements IConstants {
 		//		log.info("number of constraints:         " + String.format(format, Info.constraints));
 		//		log.info("number of skipped constraints: " + String.format(format, Info.skipped));
 		log.info("number of assertions: " + String.format(format, Info.assertions));
+
+		return (returnString ? Writer.getString() : null);
 	}
 
 	/**
