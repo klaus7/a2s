@@ -6,8 +6,8 @@ public class WebServer {
 	
 	private static Endpoint endpoint;
 
-	public static void main(String[] args) {
-		endpoint = Endpoint.publish( "http://localhost:8080/services",
+	public static void main(final String[] args) {
+		endpoint = Endpoint.publish("http://localhost:8080/",
                 new WebService() );
 	}
 	

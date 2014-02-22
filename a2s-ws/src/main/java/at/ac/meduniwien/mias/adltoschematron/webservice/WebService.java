@@ -12,7 +12,8 @@ import at.ac.meduniwien.mias.adltoschematron.AdlToSchematronConverter;
 import at.ac.meduniwien.mias.adltoschematron.helpers.Utils;
 
 @Log4j
-@javax.jws.WebService(name = "a2s-ws")
+@javax.jws.WebService(name = "a2s-ws", endpointInterface = "at.ac.meduniwien.mias.adltoschematron.webservice.WebService")
+//@WebServiceProvider()
 @SOAPBinding(style = SOAPBinding.Style.RPC)
 public class WebService {
 
