@@ -99,8 +99,9 @@ public final class Utils implements IConstants {
 	 * 
 	 * @param xmlFile
 	 * @return assertion errors
+	 * @throws UnsupportedEncodingException 
 	 */
-	public static int validateXmlWithSchematronFile(final String xmlFile) {
+	public static int validateXmlWithSchematronFile(final String xmlFile) throws UnsupportedEncodingException {
 
 		System.setProperty("javax.xml.transform.TransformerFactory", "net.sf.saxon.TransformerFactoryImpl");
 		String schematronFile = AdlToSchematronConverter.outputFile;
@@ -109,7 +110,7 @@ public final class Utils implements IConstants {
 		String tmpxsl = xsl(schematronFile, Utils.class.getClassLoader().getResourceAsStream(SVRL_REPORT_XSL), null);
 
 		// validate xml input file
-		xsl(xmlFile, new ByteArrayInputStream(tmpxsl.getBytes()), AdlToSchematronConverter.reportOutputFile);
+		xsl(xmlFile, new ByteArrayInputStream(tmpxsl.getBytes("UTF-8")), AdlToSchematronConverter.reportOutputFile);
 
 		// create html report
 		xsl(AdlToSchematronConverter.reportOutputFile, Utils.class.getClassLoader().getResourceAsStream(HTML_REPORT_XSL),
