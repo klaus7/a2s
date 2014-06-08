@@ -12,6 +12,7 @@ import java.util.Properties;
 
 import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
@@ -123,8 +124,9 @@ public final class Utils implements IConstants {
 	 * @param schematron schematron as string
 	 * @param xml xml as string
 	 * @return svrl xml string
+	 * @throws Exception
 	 */
-	public static String validateXmlWithSchematronString(final String schematron, final String xml) {
+	public static String validateXmlWithSchematronString(final String schematron, final String xml) throws Exception {
 		System.setProperty("javax.xml.transform.TransformerFactory", "net.sf.saxon.TransformerFactoryImpl");
 
 		// generate schematron xsl
@@ -148,8 +150,9 @@ public final class Utils implements IConstants {
 	/**
 	 * @param svrl svrl as string
 	 * @return html report as string
+	 * @throws Exception
 	 */
-	public static String generateHtmlReport(final String svrl) {
+	public static String generateHtmlReport(final String svrl) throws Exception {
 		// create html report
 		return xslString(svrl, Utils.class.getClassLoader().getResourceAsStream(HTML_REPORT_XSL));
 	}
@@ -207,33 +210,25 @@ public final class Utils implements IConstants {
 		return null;
 	}
 
-	private static String xslString(final String xmlFile, final InputStream xslStream) {
+	private static String xslString(final String xmlFile, final InputStream xslStream) throws Exception {
 		return xslString(xmlFile, new StreamSource(xslStream));
 	}
-	private static String xslString(final String xml, final Source xslSource) {
-		try {
 
-			TransformerFactory tFactory = TransformerFactory.newInstance();
+	private static String xslString(final String xml, final Source xslSource) throws Exception {
+		TransformerFactory tFactory = TransformerFactory.newInstance();
 
-			// 2. Use the TransformerFactory to process the stylesheet Source and
-			//		    generate a Transformer.
-			Transformer transformer = tFactory.newTransformer(xslSource);
+		// 2. Use the TransformerFactory to process the stylesheet Source and
+		//		    generate a Transformer.
+		Transformer transformer = tFactory.newTransformer(xslSource);
 
-			// 3. Use the Transformer to transform an XML Source and send the
-			//		    output to a Result object.
+		// 3. Use the Transformer to transform an XML Source and send the
+		//		    output to a Result object.
 
-			StringWriter sw = new StringWriter();
-			StreamResult sr = new StreamResult(sw);
-			transformer.transform(new StreamSource(new ByteArrayInputStream(xml.getBytes("UTF-8"))), sr);
+		StringWriter sw = new StringWriter();
+		StreamResult sr = new StreamResult(sw);
+		transformer.transform(new StreamSource(new ByteArrayInputStream(xml.getBytes("UTF-8"))), sr);
 
-			return sw.getBuffer().toString();
-
-		} catch (Exception e) {
-
-			log.error(e.getLocalizedMessage(), e);
-
-		}
-		return null;
+		return sw.getBuffer().toString();
 	}
 
 	/**

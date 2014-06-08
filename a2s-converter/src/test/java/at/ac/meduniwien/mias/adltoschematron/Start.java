@@ -19,8 +19,9 @@ public final class Start {
 	 * @throws ParseException 
 	 */
 	public static void main(final String[] args) throws ParseException {
-		String adlFile = "adl/test/adl-test-entry.basic_types.test.adl";
-		String xmlFile = "xml/test/test-entry-basic-success.xml";
+		String adlFile = "adl/elga/HL7-CDA-ClinicalDocument.Ent_Aerztl_Full_Sup_v_1_1.v1.adl";
+		String xmlFile = "xml/elga/ELGA-Entlassungsbrief_aerztlich_EIS-FullSupport.xml";
+		//		adlFile = null;
 
 		if (args != null && args.length > 1) {
 			adlFile = args[0];

@@ -16,7 +16,7 @@ public final class Reporter {
 	/**
 	 * read report and disply some stats.
 	 * 
-	 * @return
+	 * @return failed assertions
 	 */
 	public static int printReportToConsole() {
 		int linenumber = 0;
