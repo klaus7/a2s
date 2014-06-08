@@ -19,8 +19,7 @@ The generated assertions are in german, but it is possible to customize the mess
 Multi-language support with multiple files like `language.en.properties` is planned in the future.
 
 
-## Future plans
+## Try it out online
 
-* There will be a webservice with the possibility to generate Schematron schemas and validate documents using this Schematron generator. 
-
+Go to http://www.truthcontrol.net/client/a2s to try it out online.
 
