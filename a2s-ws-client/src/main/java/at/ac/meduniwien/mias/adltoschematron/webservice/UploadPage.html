@@ -1,0 +1,60 @@
+<html xmlns:wicket="http://wicket.apache.org">
+	<head>
+		<title>A2S - Webservice Client</title>
+	</head>
+	<body>
+		<h1>A2S - ADL to Schematron - Online</h1>
+		<p>You can test the ADL to Schematron generator with this simple form. Just provide an archetype expressed in the 
+		archetype definition language (ADL) and optionally an EHR extract as XML file that you want to validate and press the
+		&quot;Generate&quot; button.</p>
+		<p>UTF-8 is expected in all cases.</p>
+		<form wicket:id="progressUpload">
+			<fieldset>
+				<legend>Provide archetype (ADL)</legend>
+				<p>
+					<label for="upload">File</label>
+					<input wicket:id="fileInputAdl" type="file" accept=".adl" />
+				</p>
+			</fieldset>
+			<fieldset>
+				<legend>(Optional) Provide XML file to validate (EHR)</legend>
+				<p>
+					<label for="upload">File</label>
+					<input wicket:id="fileInputXml" type="file" accept=".xml" />
+				</p>
+			</fieldset>
+			<fieldset>
+				<legend>Generate Schematron schema and validation report</legend>
+				<p>
+					<input type="submit" value="Generate" />
+					<span wicket:id="progress">[[upload progressbar]]</span>
+				</p>
+			</fieldset>
+		</form>
+
+		<div>
+			<span wicket:id="uploadFeedback" />
+		</div>
+		
+		<wicket:enclosure child="outputSchematron">
+			<div>
+				<wicket:enclosure>
+					<hr></hr>
+					<div wicket:id="outputHtml"></div>
+				</wicket:enclosure>
+					
+				<wicket:enclosure>
+					<hr></hr>
+					<h1>Validation Report (SVRL)</h1>
+					<pre wicket:id="outputSvrl"></pre>
+				</wicket:enclosure>
+				
+				<hr></hr>
+				<h1>Schematron Schema</h1>
+				<pre wicket:id="outputSchematron"></pre>
+			</div>
+		</wicket:enclosure>
+		
+
+	</body>
+</html>
