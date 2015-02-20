@@ -17,9 +17,3 @@ You can start the generator with `Start.java` class found under "src/test/java/a
 The generated assertions are in german, but it is possible to customize the messages of the assertions in the `language.properties` file.
 
 Multi-language support with multiple files like `language.en.properties` is planned in the future.
-
-
-## Try it out online
-
-Go to http://www.truthcontrol.net/client/a2s to try it out online.
-
