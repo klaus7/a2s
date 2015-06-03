@@ -131,10 +131,10 @@ public class UploadPage extends WebPage {
 
 			} catch (ParseException e) {
 				log.error("ParseException", e);
-				error("Error while parsing archetype!");
+				error("Error while parsing archetype! " + e.getMessage());
 			} catch (Exception e) {
 				log.error("Exception", e);
-				error("General exception while generating schematron or validation report!");
+				error("General exception while generating schematron or validation report! " + e.getMessage());
 			}
 
 		}
